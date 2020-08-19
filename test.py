@@ -1,17 +1,20 @@
-from utillib.util import *
+import collections
+import os
+import pprint
 
 
-test = 'thisISPasswordEXAMPLE'
+s = "http://newsapi.org/v2/everything?q=RUSSIA&from={DATA_DATE}&to={DATA_DATE}&sortBy=popularity&apiKey={TOKEN}"
 
+os.environ['DATA_DATE'] = '2020-10-01'
+os.environ['TEST'] = 'TEST'
 
-encSTR = encrypt(test)
-print(encSTR)
-
-
-decSTR = decrypt(encSTR)
+#for k, v in os.environ.items(): print(f'{k}={v}')
 
 
 
+d =  collections.defaultdict(str)
+d.update(os.environ)
+pprint.pprint(d)
 
 
 

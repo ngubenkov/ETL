@@ -1,0 +1,77 @@
+CREATE TABLE ADMINREPORTS.ADMINS(
+    ID int NOT NULL AUTO_INCREMENT ,
+    CODE varchar(255) NOT NULL unique ,
+    CREATEDAT datetime not null ,
+    UPDATEDAT datetime not null ,
+    PWFAILURE int,
+    USERNAME varchar(255) NOT NULL ,
+    ENC_PASSWORD varchar(255) not null ,
+    PRIMARY KEY (ID)
+
+)
+
+
+CREATE TABLE ADMINREPORTS.REPORTS(
+    ID int NOT NULL AUTO_INCREMENT ,
+    NAME varchar(255) NOT NULL unique ,
+    GENERATESCRIPTCLI VARCHAR(255) NOT NULL ,
+    CREATEDAT datetime not null ,
+    UPDATEDAT datetime not null ,
+    MAXTRIES int NOT NULL ,
+    ISACTIVE INT NOT NULL ,
+    FILESUFFIX varchar(255) not null ,
+    PRIMARY KEY (ID)
+)
+
+
+CREATE TABLE ADMINREPORTS.DATASOURCEFREQ(
+    ID int NOT NULL AUTO_INCREMENT ,
+    REPORTID INT,
+    FREQ varchar(255),
+    ISACTIVE INT NOT NULL ,
+    CREATEDAT datetime not null ,
+    UPDATEDAT datetime not null ,
+    NAME varchar(255) not null ,
+    ADMINID INT,
+    DEFS VARCHAR(255),
+    SAFETIME varchar(255) not null ,
+    SAFEDAY varchar(255),
+
+
+    FOREIGN KEY (REPORTID)
+        REFERENCES REPORTS(ID)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (ADMINID)
+        REFERENCES ADMINS(ID)
+        ON DELETE CASCADE,
+
+    PRIMARY KEY (ID)
+)
+
+
+
+CREATE TABLE ADMINREPORTS.DATASOURCERUNS(
+    ID int NOT NULL AUTO_INCREMENT ,
+    FREQID INT,
+    DATADATE DATE not null ,
+    STARTEDAT datetime,
+    FINISHEDAT datetime,
+    EXITCODE INT ,
+    ERRORDESC INT,
+    STDOUTPATH varchar(255) not null ,
+    STDERRPATH varchar(255) not null ,
+    COMMENTS VARCHAR(255),
+    STATUS VARCHAR(255),
+    RETRIEVEDPATH varchar(255) not null ,
+    PHASE varchar(255),
+    PID INT ,
+    DIRRUNID int,
+
+
+    FOREIGN KEY (FREQID)
+        REFERENCES DATASOURCEFREQ(ID)
+        ON DELETE CASCADE,
+
+    PRIMARY KEY (ID)
+)

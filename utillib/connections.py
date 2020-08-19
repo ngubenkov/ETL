@@ -1,8 +1,8 @@
 from utillib.util import *
+from utillib.dbapiutil import *
+import importlib
 
-
-
-def load_connection_from_file(name):
+def load_connection_from_file(name, return_dbapi = False):
     conf_tree = get_config_tree()
     conn_elements = conf_tree.findall('./db_connections/conn')
     for conn_element in conn_elements:
@@ -19,14 +19,20 @@ def load_connection_from_file(name):
 
             startup_query = [el.text for el in conn_element.findall('./startupquery')]
 
-    # TODO: generate proper sql connection with importing library
+            if not return_dbapi:
+                result = connect(lambda: importlib.import_module(module_name).connect(**kwargs),startup_query)
 
-    return [kwargs, startup_query]
+            else:
+                result = Connection(importlib.import_module(module_name).connect(**kwargs),startup_query)
+
+            return result
 
 
 def get_test_conn():
     return load_connection_from_file('test')
 
+def get_etl_conn():
+    return load_connection_from_file('etl')
 
 
 
