@@ -75,3 +75,31 @@ CREATE TABLE ADMINREPORTS.DATASOURCERUNS(
 
     PRIMARY KEY (ID)
 )
+
+
+INSERT INTO REPORTS(NAME, GENERATESCRIPTCLI, CREATEDAT, UPDATEDAT, MAXTRIES, ISACTIVE, FILESUFFIX)
+VALUES ('NEWSAPI','test',sysdate(), sysdate(), 100,1,'json');
+
+
+INSERT INTO ADMINS(CODE, CREATEDAT, UPDATEDAT, PWFAILURE, USERNAME, ENC_PASSWORD)
+VALUES('NEWSAPI',sysdate(), sysdate(),null, 'frozmannik', 'gAAAAABfQBnzY7py-Q2HqtbwZHFdlL443Y8kALNhGwlMk4fH3aQEA201mNt5F59PTR9Ax4phNPenIY0_r_X7FkFXNxqflflBcuaGs_Kl0W0eZ1It3cWgQbi2XHCT_S2y7P_Q-76BKI8v');
+
+
+INSERT INTO DATASOURCEFREQ(REPORTID, FREQ, ISACTIVE, CREATEDAT, UPDATEDAT, NAME, ADMINID, DEFS, SAFETIME, SAFEDAY)
+VALUES(1,'D',1,sysdate(), sysdate(), 'NEWSAPI_RUSSIA',1,
+       'REPORT_KEY=NEWSAPI_RUSSIA
+url=http://newsapi.org/v2/
+data_to_post=everything?q=RUSSIA&from={DATA_DATE}&to={DATA_DATE}&sortBy=popularity&apiKey={TOKEN}', 1000, null ),
+
+       (1,'D',1,sysdate(), sysdate(), 'NEWSAPI_APPLE',1,
+       'REPORT_KEY=NEWSAPI_APPLE
+url=http://newsapi.org/v2/
+data_to_post=everything?q=APPLE&from={DATA_DATE}&to={DATA_DATE}&sortBy=popularity&apiKey={TOKEN}', 1010, null ),
+       (1,'D',0,sysdate(), sysdate(), 'NEWSAPI_COVID',1,
+       'REPORT_KEY=NEWSAPI_COVID19
+url=http://newsapi.org/v2/
+data_to_post=everything?q=COVID19&from={DATA_DATE}&to={DATA_DATE}&sortBy=popularity&apiKey={TOKEN}', 1000, null ),
+       (1,'M',1,sysdate(), sysdate(), 'NEWSAPI_RUSSIA',1,
+       'REPORT_KEY=NEWSAPI_ARMY
+url=http://newsapi.org/v2/
+data_to_post=everything?q=ARMY&from={DATA_DATE}&to={DATA_DATE}&sortBy=popularity&apiKey={TOKEN}', 1000, 2 )
