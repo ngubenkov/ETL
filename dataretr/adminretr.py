@@ -20,4 +20,13 @@ if __name__ == '__main__':
     LOGGER.info('Received DATARETR_RETRIEVED_PATH: %s', DATARETR_RETRIEVED_PATH)
     LOGGER.info('Received PHASE: %s', PHASE)
 
+    RETRIEVE_PATH = os.environ['RETRIEVE_PATH']
+    LOGGER.info('Receieved RETRIEVE_PATH: %s', RETRIEVE_PATH)
+
+    open_file = open
+    mode = 'r'
+    encoding = None
+    errors = 'ignore'
+
+
 

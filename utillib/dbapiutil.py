@@ -10,7 +10,6 @@ class Connection:
     def __init__(self, dbapi_conn, startup_queries=None):
         self.dbapi_conn = dbapi_conn
         if startup_queries:
-
             for query in startup_queries:
                 self.execute(query)
 
